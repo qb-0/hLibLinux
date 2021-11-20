@@ -115,12 +115,12 @@ proc nopCode*(a: Process, address: ByteAddress, length: int = 1) =
 proc intProcess*: Process =
   processByPid(getPid())
 
-proc read*(address: ByteAddress, t: typedesc): t =
+proc memRead*(address: ByteAddress, t: typedesc): t =
   cast[ptr t](address)[]
 
-proc write*(address: ByteAddress, data: auto) =
+proc memWrite*(address: ByteAddress, data: auto) =
   cast[ptr typeof(data)](address)[] = data
 
-proc readString*(address: ByteAddress): string =
+proc memReadString*(address: ByteAddress): string =
   var r = read(address, array[0..50, char])
   $cast[cstring](r[0].unsafeAddr)
