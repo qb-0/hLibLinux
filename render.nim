@@ -254,10 +254,10 @@ proc close*(self: Overlay) =
   self.window.setWindowShouldClose(true) 
 
 proc loop*(self: Overlay, update: bool = true): bool =
-  if update: self.update()
+  if update: 
+    self.update()
   if keyPressed(self.exitKey): 
     self.close()
-    self.deinit()
   not self.window.windowShouldClose()
 
 #[
