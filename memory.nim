@@ -4,12 +4,12 @@ import
   regex
 
 type
-  Process = object
+  Process* = object
     name*: string
     pid*: int
     modules*: Table[string, Module]
 
-  Module = object
+  Module* = object
     baseAddr*: ByteAddress
     moduleSize*: int
     regions*: seq[tuple[s: ByteAddress, e: ByteAddress, size: int]]
