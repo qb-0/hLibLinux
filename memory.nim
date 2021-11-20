@@ -7,6 +7,7 @@ type
   Process* = object
     name*: string
     pid*: int
+    baseAddr*: ByteAddress
     modules*: Table[string, Module]
 
   Module* = object
@@ -81,6 +82,7 @@ proc processByName*(name: string): Process =
         result.name = procName
         result.pid = pid
         result.modules = getModules(pid)
+        result.baseAddr = result.modules[result.name].baseAddr
         return
   raise newException(IOError, fmt"Process not found ({name})")
 
@@ -89,6 +91,7 @@ proc processByPid*(pid: int): Process =
     result.name = readLines(fmt"/proc/{pid}/status", 1)[0].split()[1]
     result.pid = pid
     result.modules = getModules(pid)
+    result.baseAddr = result.modules[result.name].baseAddr
   except IOError:
     raise newException(IOError, fmt"Pid ({pid}) does not exist")
 
