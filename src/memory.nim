@@ -112,6 +112,9 @@ proc nopCode*(a: Process, address: ByteAddress, length: int = 1) =
 
 # Internal
 
+proc intProcess*: Process =
+  processByPid(getPid())
+
 proc read*(address: ByteAddress, t: typedesc): t =
   cast[ptr t](address)[]
 
