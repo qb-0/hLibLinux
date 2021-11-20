@@ -122,5 +122,5 @@ proc memWrite*(address: ByteAddress, data: auto) =
   cast[ptr typeof(data)](address)[] = data
 
 proc memReadString*(address: ByteAddress): string =
-  var r = read(address, array[0..50, char])
+  var r = memRead(address, array[0..50, char])
   $cast[cstring](r[0].unsafeAddr)
